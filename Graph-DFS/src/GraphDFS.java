@@ -1,7 +1,5 @@
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class GraphDFS {
     private List<Integer> order;
@@ -23,7 +21,13 @@ public class GraphDFS {
         }
     }
 
+    private Iterable<Integer> order() {
+        return order;
+    }
 
-
+    public static void main(String[] args) {
+        GraphDFS dfs = new GraphDFS(new Graph("g.txt"));
+        System.out.println(dfs.order);
+    }
 
 }
