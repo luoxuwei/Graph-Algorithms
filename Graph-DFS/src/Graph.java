@@ -21,7 +21,9 @@ public class Graph {
             E = scanner.nextInt();
             for (int i=0; i<E; i++) {
                 int a = scanner.nextInt();
+                validateVertex(a);
                 int b = scanner.nextInt();
+                validateVertex(b);
                 //检测是否是平行边
                 if (!adj[a].contains(b))
                     adj[a].add(b);
@@ -34,5 +36,10 @@ public class Graph {
             e.printStackTrace();
         }
 
+    }
+
+    private void validateVertex(int v) {
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("");
     }
 }
