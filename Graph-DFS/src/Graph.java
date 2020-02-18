@@ -38,6 +38,30 @@ public class Graph {
 
     }
 
+    public int V() {
+        return V;
+    }
+
+    public int E() {
+        return E;
+    }
+
+    public boolean hasEdge(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
+        return adj[v].contains(w); //or adj[w].constains(v)
+    }
+
+    public int degree(int v) {
+        validateVertex(v);
+        return adj[v].size();
+    }
+
+    public Iterable<Integer> adj(int v) {
+        validateVertex(v);
+        return adj[v];
+    }
+
     private void validateVertex(int v) {
         if (v < 0 || v >= V)
             throw new IllegalArgumentException("");
