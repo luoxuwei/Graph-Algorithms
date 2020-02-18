@@ -15,6 +15,7 @@ public class Graph {
         try (Scanner scanner = new Scanner(file)){
             V = scanner.nextInt();
             if (V < 0) throw new IllegalArgumentException("");
+            adj = new TreeSet[V];
             for (int i=0; i<V; i++)
                 adj[i] = new TreeSet<>();
 
