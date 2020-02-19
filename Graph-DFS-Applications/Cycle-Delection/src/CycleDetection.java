@@ -10,9 +10,11 @@ public class CycleDetection {
         validate = new boolean[g.V()];
         this.g =g;
         this.s = s;
-
-        for (int v = 0; v < g.V(); v++)
-            dfs(v, v);
+        for (int v = 0; v < g.V(); v++) {
+            if (!validate[v]) {
+                dfs(v, v);
+            }
+        }
     }
 
     private void dfs(int v, int parent) {
@@ -20,7 +22,7 @@ public class CycleDetection {
         for (int w : g.adj(v)) {
             if (!validate[w])
                 dfs(w, v);
-            else  if (w != v) {
+            else  if (w != parent) {
                 hasCycle = true;
             }
         }
@@ -33,6 +35,8 @@ public class CycleDetection {
     public static void main(String[] args) {
         CycleDetection dfs = new CycleDetection(new Graph("g.txt"));
         System.out.println(dfs.hasCycle());
+        CycleDetection dfs1 = new CycleDetection(new Graph("g1.txt"));
+        System.out.println(dfs1.hasCycle());
     }
 
 }
