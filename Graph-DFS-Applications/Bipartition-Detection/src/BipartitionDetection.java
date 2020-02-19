@@ -41,6 +41,13 @@ public class BipartitionDetection {
 
     public static void main(String[] args) {
 
+        BipartitionDetection bipartitionDetection = new BipartitionDetection(new Graph("g.txt"));
+        System.out.println(bipartitionDetection.isBipartition());
+
+        BipartitionDetection bipartitionDetection1 = new BipartitionDetection(new Graph("g2.txt"));
+        System.out.println(bipartitionDetection1.isBipartition());
+
+
     }
 
 }
