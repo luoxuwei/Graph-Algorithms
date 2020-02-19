@@ -20,13 +20,14 @@ public class GraphBFS {
     private void bfs(int v) {
         LinkedList<Integer> queue = new LinkedList<>();
         queue.addLast(v);
+        validate[v] = true;
         while (!queue.isEmpty()) {
             int cur = queue.removeFirst();
-            validate[cur] = true;
             order.add(cur);
             for (int w:g.adj(cur)) {
                 if (!validate[w]) {
                     queue.addLast(w);
+                    validate[w] = true;
                 }
             }
         }
@@ -36,5 +37,8 @@ public class GraphBFS {
         return order;
     }
 
-
+    public static void main(String[] args) {
+        GraphBFS bfs = new GraphBFS(new Graph("g.txt"));
+        System.out.println(bfs.order());
+    }
 }
