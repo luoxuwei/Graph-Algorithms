@@ -17,6 +17,11 @@ public class Path {
         for (int i = 0; i < g.V(); i++)
             pre[i] = -1;
         dfs(s, s);
+
+        for (boolean v : validate)
+            System.out.print(v+" ");
+
+        System.out.println();
     }
 
     private boolean dfs(int v, int parent) {
@@ -58,6 +63,10 @@ public class Path {
     public static void main(String[] args) {
         Path dfs = new Path(new Graph("g.txt"), 0, 6);
         System.out.println(dfs.path());
+        Path dfs1 = new Path(new Graph("g.txt"), 0, 1);
+        System.out.println(dfs1.path());
+        Path dfs2 = new Path(new Graph("g.txt"), 0, 5);
+        System.out.println(dfs2.path());
     }
 
 }
