@@ -19,24 +19,29 @@ public class Path {
         dfs(s, s);
     }
 
-    private void dfs(int v, int parent) {
+    private boolean dfs(int v, int parent) {
         validate[v] = true;
         pre[v] = parent;
+        if (v == t) return true;
         for (int w : g.adj(v)) {
-            if (!validate[w])
-                dfs(w, v);
+            if (!validate[w]) {
+                if (dfs(w, v)) return true;
+            }
+
         }
+
+        return false;
     }
 
-    public boolean isConnected(int t) {
+    public boolean isConnected() {
         g.validateVertex(t);
         return validate[t];
     }
 
-    public Iterable<Integer> path(int t) {
+    public Iterable<Integer> path() {
         g.validateVertex(t);
         ArrayList<Integer> res = new ArrayList<>();
-        if (!isConnected(t))
+        if (!isConnected())
             return res;
 
         int cur = t;
@@ -51,8 +56,8 @@ public class Path {
     }
 
     public static void main(String[] args) {
-        Path dfs = new Path(new Graph("g.txt"), 0);
-        System.out.println(dfs.path(6));
+        Path dfs = new Path(new Graph("g.txt"), 0, 6);
+        System.out.println(dfs.path());
     }
 
 }
