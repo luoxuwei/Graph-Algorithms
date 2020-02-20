@@ -53,5 +53,11 @@ public class Solution695 {
         }
         return sum;
     }
-    
+
+    public static void main(String[] args) {
+        int[][] data = new int[][]{{1, 1}};
+        Solution695 solution695 = new Solution695();
+        System.out.println(solution695.maxAreaOfIsland(data));
+    }
+
 }
