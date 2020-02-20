@@ -42,7 +42,7 @@ public class Solution695 {
             for (int i = 0; i < 4; i++) {
                 nextY = row + dirs[i][0];
                 nextX = rol + dirs[i][1];
-                if (nextX > 0 && nextX < rols && nextY > 0 && nextY < rows
+                if (nextX >= 0 && nextX < rols && nextY >= 0 && nextY < rows
                         && G[nextY][nextX] > 0 && G[nextY][nextX] != 2) {
                     sum++;
                     queue.addLast(nextY*rols + nextX);
