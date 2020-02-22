@@ -54,6 +54,11 @@ public class Soloution773 {
         return -1;
     }
 
-
+    public static void main(String[] args) {
+        Soloution773 soloution773 = new Soloution773();
+        System.out.println(soloution773.slidingPuzzle(new int[][]{{1,2,3},{4,0,5}}));
+        System.out.println(soloution773.slidingPuzzle(new int[][]{{1,2,3},{5,4,0}}));
+        System.out.println(soloution773.slidingPuzzle(new int[][]{{4,1,2},{5,0,3}}));
+    }
 
 }
