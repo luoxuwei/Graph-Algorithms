@@ -11,8 +11,7 @@ public class Solution752 {
         a = new int[]{-1, 1};
         dirs = new int[4 * 2][4];
         LinkedList<Integer> queue = new LinkedList<>();
-        int cur = 0;
-        queue.addLast(0);
+
         TreeMap<Integer, Integer> validate = new TreeMap<>();
         int d = 0;
         for (int i = 0; i < 4; i++) {
@@ -26,11 +25,17 @@ public class Solution752 {
         for (int ds = 0; ds < deadends.length; ds++) {
             deadendsInt.add(Integer.parseInt(deadends[ds]));
         }
+
         int nextA = 0; int nextB = 0; int nextC = 0; int nextD = 0;
         int max = 9999 - deadends.length;
         int next;
         int temp;
-        validate.put(cur, 0);
+        int cur = 0;
+        if (!deadendsInt.contains(0)) {
+            queue.addLast(0);
+            validate.put(cur, 0);
+        }
+
         while (!queue.isEmpty()) {
             cur = queue.removeFirst();
             next = 0;
@@ -83,7 +88,9 @@ public class Solution752 {
     }
 
     public static void main(String[] args) {
+//        Solution752 solution752 = new Solution752();
+//        System.out.println(solution752.openLock(new String[]{"0201","0101","0102","1212","2002"}, "0202"));
         Solution752 solution752 = new Solution752();
-        System.out.println(solution752.openLock(new String[]{"0201","0101","0102","1212","2002"}, "0202"));
+        System.out.println(solution752.openLock(new String[]{"0000"}, "8888"));
     }
 }
