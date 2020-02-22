@@ -79,7 +79,7 @@ public class Soloution {
                 if (((i / 10) == 4) || ((i % 10) == 4)) {
                     int preState = i;
                     res.add(i);
-                    while ((preState = pre.get(i)) != 0) {
+                    while ((preState = pre.get(preState)) != 0) {
                         res.add(preState);
                     }
                     Collections.reverse(res);
