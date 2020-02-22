@@ -20,6 +20,9 @@ public class Soloution773 {
             }
         }
         String cur = new String(chars);
+        if (target.equals(cur)) {
+            return 0;
+        }
         LinkedList<String> queue = new LinkedList<>();
         queue.addLast(cur);
         res.put(cur, 0);
