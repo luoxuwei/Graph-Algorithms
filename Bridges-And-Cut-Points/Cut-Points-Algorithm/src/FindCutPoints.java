@@ -1,7 +1,9 @@
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FindCutPoints {
     private Graph G;
@@ -9,13 +11,13 @@ public class FindCutPoints {
     private int[] order;
     private int[] low;
     private int cnt;
-    private List<Pair<Integer, Integer>> res;
+    private Set<Integer> res;
     public FindCutPoints(Graph g) {
         G = g;
         validate = new boolean[g.V()];
         order = new int[g.V()];
         low = new int[g.V()];
-        res = new ArrayList<>();
+        res = new HashSet<>();
         for (int v = 0; v < g.V(); v++) {
             if (!validate[v]) {
                 dfs(v, v);
@@ -28,12 +30,19 @@ public class FindCutPoints {
         order[v] = cnt;
         low[v] = cnt;
         cnt++;
+        int chil = 0;
         for (int w : G.adj(v)) {
             if (!validate[w]) {
                 dfs(w, v);
                 low[v] = Math.min(low[v], low[w]);
-                if (low[w] > order[v]) {
-                    res.add(new Pair<>(v, w));
+                if (v != parent && low[w] >= order[v]) {
+                    res.add(v);
+                }
+                if (v == parent) {
+                    chil++;
+                    if (chil > 1) {
+                        res.add(v);
+                    }
                 }
             } else if (w != parent) {
                 low[v] = Math.min(low[v], low[w]);
@@ -41,7 +50,7 @@ public class FindCutPoints {
         }
     }
 
-    public List<Pair<Integer, Integer>> result() {
+    public Iterable<Integer> result() {
         return res;
     }
 
