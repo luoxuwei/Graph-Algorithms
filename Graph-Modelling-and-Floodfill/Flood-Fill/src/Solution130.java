@@ -21,7 +21,7 @@ public class Solution130 {
         List<Integer> res;
 
         for (int v = 0; v <= (R * C - 1); v++) {
-            if (G[v/C][v%C] == 'O') {
+            if (G[v/C][v%C] == 'O' && !validate[v]) {
                 res = new LinkedList<>();
                 if (!dfs(v, res)) {
                    for (int w : res) {
@@ -52,7 +52,8 @@ public class Solution130 {
                 if (nr == 0 || nr == (R - 1) || nc == 0 || nc == (C - 1)) {
                     res = true;
                 }
-                res = res | dfs(nr * C + nc, resList);
+                boolean dfsRes = dfs(nr * C + nc, resList);
+                res = res | dfsRes;
             }
         }
         return res;
@@ -60,7 +61,20 @@ public class Solution130 {
 
     public static void main(String[] args) {
         Solution130 solution1020 = new Solution130();
+        char[][] borad = new char[][]{{'O','O','O'},{'O','O','O'},{'O','O','O'}};
+        solution1020.solve(borad);
+        print(borad);
 
+    }
+
+    private static void print(char[][] board) {
+        for (char[] r : board) {
+            for (char c : r) {
+                System.out.print(c);
+                System.out.print(',');
+            }
+            System.out.println();
+        }
     }
 
 }
