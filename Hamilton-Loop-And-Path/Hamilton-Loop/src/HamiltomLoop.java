@@ -12,16 +12,17 @@ public class HamiltomLoop {
         G = g;
         validate = new boolean[g.V()];
         pre = new int[g.V()];
-        dfs(0, 0);
+        dfs(0, 0, g.V());
     }
 
-    private boolean dfs(int v, int p) {
+    private boolean dfs(int v, int p, int left) {
         validate[v] = true;
         pre[v] = p;
+        left--;
         for (int w : G.adj(v)) {
             if (!validate[w]) {
-                if (dfs(w, v)) return true;
-            } else if (w == 0 && allVisited()) {
+                if (dfs(w, v, left)) return true;
+            } else if (w == 0 && left == 0) {
                 //一开始写成了 end = w，切结粗心大意
                 end = v;
                 return true;
