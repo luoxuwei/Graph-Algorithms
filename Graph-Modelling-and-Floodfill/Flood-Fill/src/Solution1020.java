@@ -5,6 +5,7 @@ public class Solution1020 {
     int R;
     int C;
     int [][] dirs;
+    int nums = 0;
 
     public int numEnclaves(int[][] A) {
         G = A;
@@ -17,8 +18,10 @@ public class Solution1020 {
         int res = 0;
         for (int v = 0; v <= R * C - 1; v++) {
             if (G[v/C][v%C] == 1) {
+                nums = 0;
                 if (!dfs(v)) {
-                    res++;
+                    res = res + nums;
+
                 }
 
             }
@@ -27,7 +30,7 @@ public class Solution1020 {
     }
 
     private boolean dfs(int v) {
-
+        nums++;
         int r = v/C;
         int c = v%C;
         G[r][c] = 2;
@@ -47,6 +50,11 @@ public class Solution1020 {
             }
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        Solution1020 solution1020 = new Solution1020();
+        System.out.println(solution1020.numEnclaves(new int[][]{{0,0,0,0},{1,0,1,0},{0,1,1,0},{0,0,0,0}}));
     }
 
 }
