@@ -19,14 +19,18 @@ public class HamiltomLoop {
         validate[v] = true;
         pre[v] = p;
         left--;
+        if (left == 0 && G.hasEdge(v, 0)) {
+            end = v;
+            return true;
+        }
         for (int w : G.adj(v)) {
             if (!validate[w]) {
                 if (dfs(w, v, left)) return true;
-            } else if (w == 0 && left == 0) {
+            } /*else if (w == 0 && left == 0) {
                 //一开始写成了 end = w，切结粗心大意
                 end = v;
                 return true;
-            }
+            }*/
         }
         //遍历了所有连接的顶点没有找到哈密尔顿回路，回退
         validate[v] = false;
