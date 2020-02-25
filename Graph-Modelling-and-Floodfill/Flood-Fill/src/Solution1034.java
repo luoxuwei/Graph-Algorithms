@@ -36,7 +36,7 @@ public class Solution1034 {
                     if (image[nr][nc] == target && !visited[nr*C+nc]) {
                         queue.addLast(nr*C+nc);
                         visited[nr*C+nc] = true;
-                    } else if (image[nr][nc] == 1 && !visited[nr*C+nc]) {
+                    } else if (image[nr][nc] != target && !visited[nr*C+nc]) { //这里加!visited验证是针对 newColor和其他颜色一样的情况。
                         image[cur/C][cur%C] = newColor;
                     }
 
@@ -52,8 +52,8 @@ public class Solution1034 {
 
     public static void main(String[] args) {
         Solution1034 solution1034 = new Solution1034();
-        int[][] board = new int[][]{{1,2,1,2,1,2},{2,2,2,2,1,2},{1,2,2,2,1,2}};
-        solution1034.colorBorder(board,1,3,1);
+        int[][] board = new int[][]{{1,2,2},{2,1,2},{1,2,3},{3,2,1}};
+        solution1034.colorBorder(board,1,1,3);
         print(board);
 
     }
