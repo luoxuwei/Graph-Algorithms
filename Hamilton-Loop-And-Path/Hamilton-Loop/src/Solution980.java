@@ -22,6 +22,7 @@ public class Solution980 {
                     start = i * C + j;
                 } else if (grid[i][j] == 2) {
                     end = i * C + j;
+                    grid[i][j] = 0;
                 } else if (grid[i][j] == -1) {
                     invalid++;
                 }
@@ -53,6 +54,11 @@ public class Solution980 {
 
         //遍历了所有连接的顶点没有找到哈密尔顿回路，回退
         validate[v] = false;
+    }
+
+    public static void main(String[] args) {
+        Solution980 solution980 = new Solution980();
+        System.out.println(solution980.uniquePathsIII(new int[][]{{1,0,0,0},{0,0,0,0},{0,0,2,-1}}));
     }
 }
 
