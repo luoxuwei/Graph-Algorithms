@@ -6,21 +6,35 @@ public class Solution980 {
     int R = 0;
     int C = 0;
     int[][] dirs;
+    int start;
+    int end;
     public int uniquePathsIII(int[][] grid) {
         G = grid;
         R = grid.length;
         C = grid[0].length;
         validate = new boolean[R*C];
         dirs = new int[][]{{0, -1},{-1, 0},{0, 1},{1, 0}};
-
-        dfs(0,  R*C);
+        int invalid = 0;
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                if (grid[i][j] == 1) {
+                    grid[i][j] = 0;
+                    start = i * C + j;
+                } else if (grid[i][j] == 2) {
+                    end = i * C + j;
+                } else if (grid[i][j] == -1) {
+                    invalid++;
+                }
+            }
+        }
+        dfs(start,  R*C - invalid);
         return res;
     }
 
     private void dfs(int v, int left) {
         validate[v] = true;
         left--;
-        if (left == 0 && v == (R*C -1)) {
+        if (left == 0 && v == end) {
             res++;
         }
         int nr = 0;
@@ -29,9 +43,12 @@ public class Solution980 {
         for (int i = 0; i < 4; i++) {
             nr = v / C + dirs[i][0];
             nc = v % C + dirs[i][1];
-            if (!validate[nr*C + nc]) {
-                dfs(nr*C + nc, left);
+            if (nr >=0 && nr < R && nc >=0 && nc < C) {
+                if (!validate[nr*C + nc] && G[nr][nc] == 0) {
+                    dfs(nr*C + nc, left);
+                }
             }
+
         }
 
         //遍历了所有连接的顶点没有找到哈密尔顿回路，回退
