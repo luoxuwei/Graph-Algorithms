@@ -11,23 +11,43 @@ public class EulerPath {
         cc = new CC(g);
         res = new ArrayList<>();
         if (hasEulerLoop()) {
-            Stack<Integer> stack = new Stack<>();
-            stack.push(0);
-            int cur;
-            int w;
-            while (!stack.isEmpty()) {
-                cur = stack.peek();
-                if (G.degree(cur) == 0)
-                    res.add(stack.pop());
-                else {
-                    w = G.adj(cur).iterator().next();
-                    stack.push(w);
-                    G.removeEdge(cur, w);
-                }
-
-            }
+            searchRecursive(0);
         }
 
+    }
+
+    private void search() {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        int cur;
+        int w;
+        while (!stack.isEmpty()) {
+            cur = stack.peek();
+            if (G.degree(cur) == 0)
+                res.add(stack.pop());
+            else {
+                w = G.adj(cur).iterator().next();
+                stack.push(w);
+                G.removeEdge(cur, w);
+            }
+
+        }
+    }
+
+    private void searchRecursive(int v) {
+        if (G.degree(v) == 0) {
+            res.add(v);
+            return;
+        }
+        int w;
+        while (G.degree(v) > 0) {
+            w = G.adj(v).iterator().next();
+            G.removeEdge(v, w);
+            searchRecursive(w);
+        }
+
+        res.add(v);
+        return;
     }
 
     public boolean hasEulerLoop() {
