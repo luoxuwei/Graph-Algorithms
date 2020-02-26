@@ -23,14 +23,15 @@ public class Graph {
             }
             int a = 0; int b = 0;
             for (int i = 0; i < E; i++) {
+                a = scanner.nextInt();
+                b = scanner.nextInt();
                 validateVertex(a);
                 validateVertex(b);
                 if (a == b)
                     throw new IllegalArgumentException("");//自环边
                 if (adj[a].contains(b) || adj[b].contains(a))
                     throw new IllegalArgumentException("");//平行边
-                a = scanner.nextInt();
-                b = scanner.nextInt();
+
                 adj[a].add(b);
                 adj[b].add(a);
             }

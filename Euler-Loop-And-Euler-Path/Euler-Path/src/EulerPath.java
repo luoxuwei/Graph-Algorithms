@@ -46,5 +46,13 @@ public class EulerPath {
         return res;
     }
 
+    public static void main(String[] args) {
+        EulerPath eulerPath = new EulerPath(new Graph("g.txt"));
+        System.out.println(eulerPath.result());
+
+        eulerPath = new EulerPath(new Graph("g2.txt"));
+        System.out.println(eulerPath.result());
+    }
+
 
 }
