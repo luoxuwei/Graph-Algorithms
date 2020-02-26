@@ -6,7 +6,7 @@ import java.util.TreeSet;
 public class Graph {
     int E;
     int V;
-    TreeSet[] adj;
+    TreeSet<Integer>[] adj;
 
     public Graph(String path) {
         File file = new File(path);
@@ -45,4 +45,49 @@ public class Graph {
         if (v < 0 || v >= V)
             throw new IllegalArgumentException("");
     }
+
+    public int V() {
+        return V;
+    }
+
+    public int E() {
+        return E;
+    }
+
+    public Iterable<Integer> adj(int v) {
+        return adj[v];
+    }
+
+    public int degree(int v) {
+        return adj[v].size();
+    }
+
+    public void removeEdge(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
+        if (adj[v].contains(w)) E--;
+        adj[v].remove(w);
+        adj[w].remove(v);
+    }
+
+    @Override
+    public Graph clone() {
+        try {
+            Graph clone = (Graph) super.clone();
+            clone.adj = new TreeSet[clone.V];
+            for (int i = 0; i < clone.V; i++) {
+                clone.adj[i] = new TreeSet<Integer>();
+                for (int w : adj[i]) {
+                    clone.adj[i].add(w);
+                }
+            }
+
+            return clone;
+
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
