@@ -13,7 +13,10 @@ public class Kruskal {
         G = g;
         cc = new CC(g);
         uf = new UF(g.V());
-
+        res = new LinkedList<>();
+        if (cc.cccount() > 1) {
+            return;
+        }
         List<WeightedEdge> edges = new LinkedList<>();
 
         for (int v = 0; v < g.V(); v++) {
@@ -25,5 +28,22 @@ public class Kruskal {
         }
 
         Collections.sort(edges);
+        WeightedEdge edge;
+        while (!edges.isEmpty()) {
+            edge = ((LinkedList<WeightedEdge>) edges).removeFirst();
+            if (!uf.isConnected(edge.getV(), edge.getW())) {
+                res.add(edge);
+                uf.unionElements(edge.getV(), edge.getW());
+            }
+        }
+    }
+
+    public List<WeightedEdge> result() {
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Kruskal kruskal = new Kruskal(new Graph("g.txt"));
+        System.out.println(kruskal.result());
     }
 }
