@@ -1,4 +1,4 @@
-public class WeightedEdge {
+public class WeightedEdge implements Comparable<WeightedEdge>{
     private int V;
     private int W;
     private int Weight;
@@ -24,5 +24,10 @@ public class WeightedEdge {
     @Override
     public String toString() {
         return String.format("%d-%d:%d", V, W, Weight);
+    }
+
+    @Override
+    public int compareTo(WeightedEdge o) {
+        return Weight - o.Weight;
     }
 }
