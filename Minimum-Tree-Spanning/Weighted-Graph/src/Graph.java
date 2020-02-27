@@ -63,6 +63,17 @@ public class Graph {
         return adj[v].size();
     }
 
+    public int getWeight(int v, int w) {
+        if (hasEdge(v, w)) return adj[v].get(w);
+        throw new IllegalArgumentException("");
+    }
+
+    public boolean hasEdge(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
+        return adj[v].containsKey(w);
+    }
+
     public void removeEdge(int v, int w) {
         validateVertex(v);
         validateVertex(w);
