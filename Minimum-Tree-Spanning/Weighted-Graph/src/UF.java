@@ -2,17 +2,23 @@ import java.util.Arrays;
 
 public class UF {
     private int[] parent;
+    private int[] rank;
 
     public UF(int n) {
         parent = new int[n];
+        rank = new int[n];
         for ( int i = 0; i < n; i++) {
             parent[i] = i;
+            rank[i] = 1;
         }
     }
 
     public int find(int v) {
-        int res = -1;
-        while ((res = parent[v]) != res) ;
+        int res = v;
+        while (res != parent[res]) {
+            parent[res] = parent[parent[res]];
+            res = parent[res];
+        }
         return res;
     }
 
@@ -24,7 +30,14 @@ public class UF {
         int rootW = find(w);
 
         if (rootV != rootW) {
-            parent[rootW] = rootV;
+            if (rank[rootV] < rank[rootW])
+                parent[rootV] = rootW;
+            else if (rank[rootV] > rank[rootW]) {
+                parent[rootW] = rootV;
+            } else {
+                parent[rootW] = rootV;
+                rank[rootV] += 1;
+            }
         }
 
     }
