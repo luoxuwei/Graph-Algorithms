@@ -7,8 +7,8 @@ public class Solution1168 {
     {
         int v;
         int w;
-        long weight;
-        WeightedEdge(int v, int w, long weight) {
+        int weight;
+        WeightedEdge(int v, int w, int weight) {
             this.v = v;
             this.w = w;
             this.weight = weight;
@@ -78,7 +78,7 @@ public class Solution1168 {
             return adj[v].size();
         }
 
-        public long getWeight(int v, int w) {
+        public int getWeight(int v, int w) {
             if (hasEdge(v, w)) return adj[v].get(w);
             throw new IllegalArgumentException("");
         }
@@ -159,40 +159,44 @@ public class Solution1168 {
         TreeSet<Integer> visited;
         List<WeightedEdge> resultEdge;
         for (List<Integer> list : ccList) {
+            if (list.size() > 1) {
+                PriorityQueue<WeightedEdge> queue = new PriorityQueue();
+                for (int w : G.adj(list.get(0))) {
+                    queue.add(new WeightedEdge(list.get(0), w, G.getWeight(list.get(0), w)));
+                }
+                visited = new TreeSet<>();
+                resultEdge = new LinkedList<>();
+                visited.add(list.get(0));
+                while (!queue.isEmpty()) {
+                    minEdge = queue.poll();
+                    if (visited.contains(minEdge.w))
+                        continue;
 
-            PriorityQueue<WeightedEdge> queue = new PriorityQueue();
-            for (int w : G.adj(list.get(0))) {
-                queue.add(new WeightedEdge(list.get(0), w, G.getWeight(list.get(0), w)));
-            }
-            visited = new TreeSet<>();
-            resultEdge = new LinkedList<>();
-            visited.add(list.get(0));
-            while (!queue.isEmpty()) {
-                minEdge = queue.poll();
-                if (visited.contains(minEdge.w))
-                    continue;
+                    resultEdge.add(minEdge);
+                    visited.add(minEdge.w);
+                    for (int w : G.adj(minEdge.w)) {
+                        queue.add(new WeightedEdge(minEdge.w, w, G.getWeight(minEdge.w, w)));
+                    }
 
-                resultEdge.add(minEdge);
-                visited.add(minEdge.w);
-                for (int w : G.adj(minEdge.w)) {
-                    queue.add(new WeightedEdge(minEdge.w, w, G.getWeight(minEdge.w, w)));
                 }
 
+                long subResult = 0;
+                int minV = Integer.MAX_VALUE;
+                for (WeightedEdge edge:resultEdge) {
+                    subResult += edge.weight;
+
+                    if (wells[edge.v - 1] < minV)
+                        minV = wells[edge.v - 1];
+
+                    if (wells[edge.w - 1] < minV)
+                        minV = wells[edge.w - 1];
+                }
+
+                result = result + minV + subResult;
+            } else if (list.size() == 1) {
+                result = result + wells[list.get(0)];
             }
 
-            long subResult = 0;
-            int minV = Integer.MAX_VALUE;
-            for (WeightedEdge edge:resultEdge) {
-                subResult += edge.weight;
-
-                if (wells[edge.v - 1] < minV)
-                    minV = wells[edge.v - 1];
-
-                if (wells[edge.w - 1] < minV)
-                    minV = wells[edge.w - 1];
-            }
-
-            result = result + minV + subResult;
 
         }
 
@@ -202,7 +206,7 @@ public class Solution1168 {
 
     public static void main(String[] args) {
         Solution1168 solution1168 = new Solution1168();
-        System.out.println(solution1168.minCostToSupplyWater(3, new int[]{1, 2, 2}, new int[][]{{1, 2, 1}, {2, 3, 1}}));
+//        System.out.println(solution1168.minCostToSupplyWater(3, new int[]{1, 2, 2}, new int[][]{{1, 2, 1}, {2, 3, 1}}));
 
         System.out.println(solution1168.minCostToSupplyWater(5, new int[]{46012,72474,64965,751,33304}, new int[][]{{2,1,6719}, {3,2,753121}, {5,3,44918}}));
     }
