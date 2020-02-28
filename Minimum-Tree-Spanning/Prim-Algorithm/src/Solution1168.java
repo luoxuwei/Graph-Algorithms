@@ -2,14 +2,27 @@
 import java.util.*;
 
 public class Solution1168 {
-    class WeightedEdge {
+
+    class WeightedEdge implements Comparable<WeightedEdge>
+    {
         int v;
         int w;
-        int weight;
-        WeightedEdge(int v, int w, int weight) {
+        long weight;
+        WeightedEdge(int v, int w, long weight) {
             this.v = v;
             this.w = w;
             this.weight = weight;
+        }
+
+        @Override
+        public int compareTo(WeightedEdge o) {
+            int res = 0;
+            if (weight > o.weight) {
+                res = 1;
+            } else if (weight < o.weight) {
+                res = -1;
+            }
+            return res;
         }
     }
 
@@ -19,12 +32,11 @@ public class Solution1168 {
         TreeMap<Integer, Integer>[] adj;
 
         public Graph(int[][] pips, int n) {
-            adj = new TreeMap[n];
+            adj = new TreeMap[n+1];
             V = n;
             E = pips.length;
-            adj = new TreeMap[V];
 
-            for (int i = 0; i < V; i++) {
+            for (int i = 1; i <= V; i++) {
                 adj[i] = new TreeMap();
             }
             int a = 0; int b = 0; int weight = 0;
@@ -46,7 +58,7 @@ public class Solution1168 {
         }
 
         public void validateVertex(int v) {
-            if (v < 0 || v >= V)
+            if (v < 0 || v > V)
                 throw new IllegalArgumentException("");
         }
 
@@ -66,7 +78,7 @@ public class Solution1168 {
             return adj[v].size();
         }
 
-        public int getWeight(int v, int w) {
+        public long getWeight(int v, int w) {
             if (hasEdge(v, w)) return adj[v].get(w);
             throw new IllegalArgumentException("");
         }
@@ -95,11 +107,11 @@ public class Solution1168 {
         public CC(Graph g) {
             G = g;
             cccount = 0;
-            ccids = new int[g.V()];
-            for (int i = 0; i < g.V(); i++)
+            ccids = new int[g.V() + 1];
+            for (int i = 0; i <= g.V(); i++)
                 ccids[i] = -1;
 
-            for (int v = 0; v < G.V(); v++) {
+            for (int v = 1; v <= G.V(); v++) {
                 if (ccids[v] == -1) {
                     dfs(v, cccount);
                     cccount++;
@@ -126,7 +138,7 @@ public class Solution1168 {
             for (int i = 0; i < cccount; i++) {
                 result.add(new LinkedList<>());
             }
-            for (int v = 0; v < G.V(); v++) {
+            for (int v = 1; v <= G.V(); v++) {
                result.get(ccids[v]).add(v);
             }
             return result;
@@ -142,7 +154,7 @@ public class Solution1168 {
 
         List<List<Integer>> ccList = cc.result();
 
-        int result = 0;
+        long result = 0;
         WeightedEdge minEdge;
         TreeSet<Integer> visited;
         List<WeightedEdge> resultEdge;
@@ -168,24 +180,31 @@ public class Solution1168 {
 
             }
 
-            int subResult = 0;
+            long subResult = 0;
             int minV = Integer.MAX_VALUE;
             for (WeightedEdge edge:resultEdge) {
                 subResult += edge.weight;
 
-                if (wells[edge.v] < minV)
-                    minV = wells[edge.v];
+                if (wells[edge.v - 1] < minV)
+                    minV = wells[edge.v - 1];
 
-                if (wells[edge.w] < minV)
-                    minV = wells[edge.w];
+                if (wells[edge.w - 1] < minV)
+                    minV = wells[edge.w - 1];
             }
 
             result = result + minV + subResult;
 
         }
 
-        return result;
+        return (int) result;
 
+    }
+
+    public static void main(String[] args) {
+        Solution1168 solution1168 = new Solution1168();
+        System.out.println(solution1168.minCostToSupplyWater(3, new int[]{1, 2, 2}, new int[][]{{1, 2, 1}, {2, 3, 1}}));
+
+        System.out.println(solution1168.minCostToSupplyWater(5, new int[]{46012,72474,64965,751,33304}, new int[][]{{2,1,6719}, {3,2,753121}, {5,3,44918}}));
     }
 
 
