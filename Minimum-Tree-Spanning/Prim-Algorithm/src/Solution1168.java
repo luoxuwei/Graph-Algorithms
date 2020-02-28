@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.util.*;
 
 public class Solution1168 {
@@ -137,6 +136,55 @@ public class Solution1168 {
     }
 
     public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
+
+        Graph G = new Graph(pipes, n);
+        CC cc = new CC(G);
+
+        List<List<Integer>> ccList = cc.result();
+
+        int result = 0;
+        WeightedEdge minEdge;
+        TreeSet<Integer> visited;
+        List<WeightedEdge> resultEdge;
+        for (List<Integer> list : ccList) {
+
+            PriorityQueue<WeightedEdge> queue = new PriorityQueue();
+            for (int w : G.adj(list.get(0))) {
+                queue.add(new WeightedEdge(list.get(0), w, G.getWeight(list.get(0), w)));
+            }
+            visited = new TreeSet<>();
+            resultEdge = new LinkedList<>();
+            visited.add(list.get(0));
+            while (!queue.isEmpty()) {
+                minEdge = queue.poll();
+                if (visited.contains(minEdge.w))
+                    continue;
+
+                resultEdge.add(minEdge);
+                visited.add(minEdge.w);
+                for (int w : G.adj(minEdge.w)) {
+                    queue.add(new WeightedEdge(minEdge.w, w, G.getWeight(minEdge.w, w)));
+                }
+
+            }
+
+            int subResult = 0;
+            int minV = Integer.MAX_VALUE;
+            for (WeightedEdge edge:resultEdge) {
+                subResult += edge.weight;
+
+                if (wells[edge.v] < minV)
+                    minV = wells[edge.v];
+
+                if (wells[edge.w] < minV)
+                    minV = wells[edge.w];
+            }
+
+            result = result + minV + subResult;
+
+        }
+
+        return result;
 
     }
 
