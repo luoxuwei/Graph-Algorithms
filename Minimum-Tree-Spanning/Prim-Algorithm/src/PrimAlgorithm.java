@@ -13,6 +13,7 @@ public class PrimAlgorithm {
         res = new LinkedList<>();
         cc = new CC(g);
         PriorityQueue<WeightedEdge> queue = new PriorityQueue<>();
+        visited = new boolean[G.V()];
         visited[0] = true;
         for (int v : G.adj(0)) {
             queue.add(new WeightedEdge(0, v, G.getWeight(0, v)));
@@ -39,6 +40,7 @@ public class PrimAlgorithm {
     }
 
     public static void main(String[] args) {
-        PrimAlgorithm primAlgorithm = new PrimAlgorithm(new Graph(""));
+        PrimAlgorithm primAlgorithm = new PrimAlgorithm(new Graph("g.txt"));
+        System.out.println(primAlgorithm.result());
     }
 }
