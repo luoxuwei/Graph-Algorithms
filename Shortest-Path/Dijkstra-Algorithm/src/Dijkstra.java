@@ -15,7 +15,7 @@ public class Dijkstra {
         dis[s] = 0;
         while (true) {
             int cur = -1;
-            int minDis = Integer.MIN_VALUE;
+            int minDis = Integer.MAX_VALUE;
             for (int v = 0; v < g.V(); v++) {
                 if (!visited[v] && dis[v] < minDis) {
                     minDis = dis[v];
@@ -36,5 +36,14 @@ public class Dijkstra {
     public int disTo(int w) {
         G.validateVertex(w);
         return dis[w];
+    }
+
+    public static void main(String[] args) {
+        Graph g = new Graph("g.txt");
+        Dijkstra dijkstra = new Dijkstra(g, 0);
+
+        for (int v = 1; v < g.V(); v++) {
+            System.out.print(dijkstra.disTo(v) + " ");
+        }
     }
 }
