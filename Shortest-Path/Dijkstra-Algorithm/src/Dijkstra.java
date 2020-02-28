@@ -24,7 +24,17 @@ public class Dijkstra {
             }
 
             if (cur == -1) break;
-            
+            visited[cur] = true;
+            for (int w:G.adj(cur)) {
+                if (!visited[w] && (dis[cur] + G.getWeight(cur, w)) < dis[w]) {
+                    dis[w] = dis[cur] + G.getWeight(cur, w);
+                }
+            }
         }
+    }
+
+    public int disTo(int w) {
+        G.validateVertex(w);
+        return dis[w];
     }
 }
