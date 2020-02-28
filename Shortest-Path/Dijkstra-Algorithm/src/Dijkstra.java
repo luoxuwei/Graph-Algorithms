@@ -1,11 +1,11 @@
-import java.util.Arrays;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Dijkstra {
     Graph G;
     int[] dis;
     int S;
     boolean[] visited;
+    int[] pre;
 
     class Node implements Comparable<Node> {
         int v;
@@ -26,6 +26,8 @@ public class Dijkstra {
         G = g;
         S = s;
         dis = new int[g.V()];
+        pre = new int[g.V()];
+        Arrays.fill(pre, -1);
         Arrays.fill(dis, Integer.MAX_VALUE);
         visited = new boolean[g.V()];
         dis[s] = 0;
@@ -40,6 +42,7 @@ public class Dijkstra {
                 if (!visited[w] && (dis[cur] + G.getWeight(cur, w)) < dis[w]) {
                     dis[w] = dis[cur] + G.getWeight(cur, w);
                     queue.add(new Node(w, dis[w]));
+                    pre[w] = cur;
                 }
             }
         }
@@ -50,6 +53,23 @@ public class Dijkstra {
         return dis[w];
     }
 
+    public boolean isConnected(int w) {
+        return visited[w];
+    }
+
+    public List<Integer> path(int w) {
+        List<Integer> res = new LinkedList<>();
+        if (!isConnected(w)) return res;
+        int cur = w;
+        res.add(w);
+        while ((cur = pre[cur]) != S) {
+            res.add(cur);
+        }
+        res.add(S);
+        Collections.reverse(res);
+        return res;
+    }
+
     public static void main(String[] args) {
         Graph g = new Graph("g.txt");
         Dijkstra dijkstra = new Dijkstra(g, 0);
@@ -57,5 +77,7 @@ public class Dijkstra {
         for (int v = 1; v < g.V(); v++) {
             System.out.print(dijkstra.disTo(v) + " ");
         }
+
+        System.out.println(dijkstra.path(3));
     }
 }
