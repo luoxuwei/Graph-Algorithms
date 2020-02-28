@@ -1,10 +1,26 @@
 import java.util.Arrays;
+import java.util.PriorityQueue;
 
 public class Dijkstra {
     Graph G;
     int[] dis;
     int S;
     boolean[] visited;
+
+    class Node implements Comparable<Node> {
+        int v;
+        int dis;
+
+        public Node(int v, int dis) {
+            this.v = v;
+            this.dis = dis;
+        }
+
+        @Override
+        public int compareTo(Node o) {
+            return dis - o.dis;
+        }
+    }
 
     public Dijkstra(Graph g, int s) {
         G = g;
@@ -13,21 +29,17 @@ public class Dijkstra {
         Arrays.fill(dis, Integer.MAX_VALUE);
         visited = new boolean[g.V()];
         dis[s] = 0;
-        while (true) {
-            int cur = -1;
-            int minDis = Integer.MAX_VALUE;
-            for (int v = 0; v < g.V(); v++) {
-                if (!visited[v] && dis[v] < minDis) {
-                    minDis = dis[v];
-                    cur = v;
-                }
-            }
+        PriorityQueue<Node> queue = new PriorityQueue<>();
+        queue.add(new Node(0, dis[0]));
+        while (!queue.isEmpty()) {
+            int cur = queue.remove().v;
 
-            if (cur == -1) break;
+            if (visited[cur]) continue;
             visited[cur] = true;
             for (int w:G.adj(cur)) {
                 if (!visited[w] && (dis[cur] + G.getWeight(cur, w)) < dis[w]) {
                     dis[w] = dis[cur] + G.getWeight(cur, w);
+                    queue.add(new Node(w, dis[w]));
                 }
             }
         }
