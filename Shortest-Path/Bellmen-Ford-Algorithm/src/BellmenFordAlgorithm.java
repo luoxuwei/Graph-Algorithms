@@ -26,5 +26,33 @@ public class BellmenFordAlgorithm {
                 }
             }
         }
+
+        //进行了V-1次松弛操作后，如果再进行一轮松弛操作，还能得到更小的最短路就表示存在负权环
+        for (int v = 0; v < G.V(); v++) {
+            for (int w : G.adj(v)) {
+                if (dis[v] != Integer.MAX_VALUE && dis[v] + G.getWeight(v, w) < dis[w]) {
+                    hasNegCycle = true;
+                }
+
+            }
+        }
+
     }
+
+    public boolean hasNegCycle() {
+        return hasNegCycle;
+    }
+
+    public boolean isConnected(int w) {
+        G.validateVertex(w);
+        return dis[w] != Integer.MAX_VALUE;
+    }
+
+    public int disTo(int w) {
+        G.validateVertex(w);
+        if (hasNegCycle) throw new IllegalArgumentException("");
+        return dis[w];
+    }
+
+
 }
