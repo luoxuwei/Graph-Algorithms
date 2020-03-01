@@ -1,13 +1,16 @@
-import java.util.*;
-
-public class CycleDetection {
+public class DirectedCycleDetection {
     private boolean[] validate;
     private Graph g;
     private int s;
     private boolean hasCycle;
+    private boolean[] onPath;
 
-    public CycleDetection(Graph g) {
+    public DirectedCycleDetection(Graph g) {
+        if (!g.isDirected())
+            throw new IllegalArgumentException("");
+
         validate = new boolean[g.V()];
+        onPath = new boolean[g.V()];
         this.g =g;
         this.s = s;
         for (int v = 0; v < g.V(); v++) {
@@ -22,10 +25,11 @@ public class CycleDetection {
         for (int w : g.adj(v)) {
             if (!validate[w])
                 dfs(w, v);
-            else  if (w != parent) {
+            else  if (onPath[w]) {
                 hasCycle = true;
             }
         }
+        onPath[v] = false;
     }
 
     public boolean hasCycle() {
@@ -33,10 +37,8 @@ public class CycleDetection {
     }
 
     public static void main(String[] args) {
-        CycleDetection dfs = new CycleDetection(new Graph("g.txt"));
+        DirectedCycleDetection dfs = new DirectedCycleDetection(new Graph("ug.txt", true));
         System.out.println(dfs.hasCycle());
-        CycleDetection dfs1 = new CycleDetection(new Graph("g1.txt"));
-        System.out.println(dfs1.hasCycle());
     }
 
 }
