@@ -8,8 +8,14 @@ public class Graph {
     private int V;
     private int E;
     private TreeSet<Integer>[] adj;
+    private boolean directed;
 
     public Graph(String path) {
+        this(path, false);
+    }
+
+    public Graph(String path, boolean directed) {
+        this.directed = directed;
         File file = new File(path);
 
         try (Scanner scanner = new Scanner(file)){
@@ -28,9 +34,10 @@ public class Graph {
                 //检测是否是平行边
                 if (!adj[a].contains(b))
                     adj[a].add(b);
-
-                if (!adj[b].contains(a))
-                    adj[b].add(a);
+                if (directed) {
+                    if (!adj[b].contains(a))
+                        adj[b].add(a);
+                }
             }
 
         } catch (FileNotFoundException e) {
@@ -53,10 +60,10 @@ public class Graph {
         return adj[v].contains(w); //or adj[w].constains(v)
     }
 
-    public int degree(int v) {
-        validateVertex(v);
-        return adj[v].size();
-    }
+//v    public int degree(int v) {
+//        validateVertex(v);
+//        return adj[v].size();
+//    }
 
     public Iterable<Integer> adj(int v) {
         validateVertex(v);
@@ -68,10 +75,14 @@ public class Graph {
             throw new IllegalArgumentException("");
     }
 
+    public boolean isDirected(){
+        return directed;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("V = %d, E = %d\n", V, E));
+        sb.append(String.format("V = %d, E = %d, directed = %b\n", V, E, directed));
         for (int v=0; v<V; v++) {
             sb.append(String.format("%d : ", v));
             for(int w : adj[v])
