@@ -83,6 +83,43 @@ public class Graph {
         return adj[v].contains(w); //or adj[w].constains(v)
     }
 
+    public void removeEdge(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
+        if (adj[v].contains(w)) {
+            E--;
+            if (directed) {
+                indegree[w]--;
+                outdegree[v]--;
+            }
+        }
+
+        adj[v].remove(w);
+
+        if (!directed)
+            adj[w].remove(v);
+    }
+
+    @Override
+    public Graph clone() {
+        try {
+            Graph clone = (Graph) super.clone();
+            clone.adj = new TreeSet[clone.V];
+            for (int i = 0; i < clone.V; i++) {
+                clone.adj[i] = new TreeSet<Integer>();
+                for (int w : adj[i]) {
+                    clone.adj[i].add(w);
+                }
+            }
+
+            return clone;
+
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 //v    public int degree(int v) {
 //        validateVertex(v);
 //        return adj[v].size();
