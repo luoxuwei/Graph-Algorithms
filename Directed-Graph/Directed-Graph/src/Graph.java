@@ -9,6 +9,8 @@ public class Graph {
     private int E;
     private TreeSet<Integer>[] adj;
     private boolean directed;
+    private int[] indegree;
+    private int[] outdegree;
 
     public Graph(String path) {
         this(path, false);
@@ -22,6 +24,8 @@ public class Graph {
             V = scanner.nextInt();
             if (V < 0) throw new IllegalArgumentException("");
             adj = new TreeSet[V];
+            indegree = new int[V];
+            outdegree = new int[V];
             for (int i=0; i<V; i++)
                 adj[i] = new TreeSet<>();
 
@@ -34,9 +38,12 @@ public class Graph {
                 //检测是否是平行边
                 if (!adj[a].contains(b))
                     adj[a].add(b);
-                if (directed) {
+                if (!directed) {
                     if (!adj[b].contains(a))
                         adj[b].add(a);
+                } else {
+                    indegree[b]++;
+                    outdegree[a]++;
                 }
             }
 
@@ -52,6 +59,22 @@ public class Graph {
 
     public int E() {
         return E;
+    }
+
+    public int indegree(int v) {
+        validateVertex(v);
+        if (!directed)
+            throw new IllegalArgumentException("");
+
+        return indegree[v];
+    }
+
+    public int outdegree(int v) {
+        validateVertex(v);
+        if (!directed)
+            throw new IllegalArgumentException("");
+
+        return outdegree[v];
     }
 
     public boolean hasEdge(int v, int w) {
