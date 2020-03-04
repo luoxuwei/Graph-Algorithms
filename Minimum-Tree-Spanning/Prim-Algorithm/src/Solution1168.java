@@ -74,11 +74,12 @@ public class Solution1168 {
 
             for (int i = 0; i < pipes.length; i++) {
                 Integer weight = adj[pipes[i][0]].get(pipes[i][1]);
-                if (weight == null || weight < pipes[i][2]) {
+                if (weight == null || weight > pipes[i][2]) {
                     weight = pipes[i][2];
                 }
                 adj[pipes[i][0]].put(pipes[i][1], weight);
                 adj[pipes[i][1]].put(pipes[i][0], weight);
+
             }
 
             for (int i = 0; i < wells.length; i++) {
