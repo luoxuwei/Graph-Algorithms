@@ -1,8 +1,6 @@
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Solution1168 {
 
@@ -30,7 +28,7 @@ public class Solution1168 {
         }
     }
 
-    public class WeightedEdge implements Comparable<WeightedEdge>{
+    public class WeightedEdge implements Comparable<WeightedEdge> {
         private int V;
         private int W;
         private int Weight;
@@ -64,10 +62,76 @@ public class Solution1168 {
         }
     }
 
+    class Graph {
+        TreeMap<Integer, Integer>[] adj;
 
+        public Graph(int[] wells, int[][] pipes) {
+
+            adj = new TreeMap[wells.length + 1];
+            for (int i = 0; i < wells.length + 1; i++) {
+                adj[i] = new TreeMap<>();
+            }
+
+            for (int i = 0; i < pipes.length; i++) {
+                Integer weight = adj[pipes[i][0]].get(pipes[i][1]);
+                if (weight == null || weight < pipes[i][2]) {
+                    weight = pipes[i][2];
+                }
+                adj[pipes[i][0]].put(pipes[i][1], weight);
+                adj[pipes[i][1]].put(pipes[i][0], weight);
+            }
+
+            for (int i = 0; i < wells.length; i++) {
+                adj[0].put(i+1, wells[i]);
+                adj[i+1].put(0, wells[i]);
+            }
+        }
+
+        public Iterable<Integer> adj(int v) {
+            return adj[v].keySet();
+        }
+
+        public int getWeight(int v, int w) {
+            return adj[v].get(w);
+        }
+    }
 
     public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
-        return kruskal(n, wells, pipes);
+//        return kruskal(n, wells, pipes);
+        return prim(n, wells, pipes);
+    }
+
+    private int prim(int n, int[] wells, int[][] pipies) {
+        Graph graph = new Graph(wells, pipies);
+        PriorityQueue<WeightedEdge> queue = new PriorityQueue<>();
+        boolean[] visited = new boolean[wells.length + 1];
+        int cost = 0;
+        for (int v : graph.adj(0)) {
+            queue.add(new WeightedEdge(0, v, graph.getWeight(0, v)));
+        }
+
+        visited[0] = true;
+        WeightedEdge weightedEdge = null;
+
+        int newV;
+
+        while (!queue.isEmpty()) {
+            weightedEdge = queue.remove();
+            if (visited[weightedEdge.getV()] && visited[weightedEdge.getW()])
+                continue;
+
+            cost = cost + weightedEdge.getWeight();
+            newV = visited[weightedEdge.getV()]?weightedEdge.getW():weightedEdge.getV();
+
+            visited[newV] = true;
+
+            for (int w : graph.adj(newV)) {
+                queue.add(new WeightedEdge(newV, w, graph.getWeight(newV, w)));
+            }
+
+        }
+
+        return cost;
     }
 
     private int kruskal(int n, int[] wells, int[][] pipies) {
