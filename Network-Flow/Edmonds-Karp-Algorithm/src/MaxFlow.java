@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MaxFlow {
@@ -51,10 +53,27 @@ public class MaxFlow {
             }
         }
 
-
     }
 
     public List<Integer> getAugmentingPath() {
-
+        ArrayList<Integer> res = new ArrayList<>();
+        boolean[] visited = new boolean[network.V()];
+        LinkedList<Integer> queue = new LinkedList<>();
+        queue.addLast(s);
+        visited[s] = true;
+        while (!queue.isEmpty()) {
+            int cur = queue.removeFirst();
+            res.add(cur);
+            if (cur == t)
+                break;
+            for (int w : rG.adj(cur)) {
+                if (!visited[w] && rG.getWeight(cur, w) > 0) {
+                    queue.addLast(w);
+                    visited[w] = true;
+                }
+            }
+        }
+        return res;
     }
+    
 }
