@@ -15,14 +15,14 @@ public class Graph {
 
             V = scanner.nextInt();
             E = 0;
-            scanner.nextInt();
+            int e = scanner.nextInt();
             adj = new TreeMap[V];
 
             for (int i = 0; i < V; i++) {
                 adj[i] = new TreeMap();
             }
             int a = 0; int b = 0; int weight = 0;
-            for (int i = 0; i < E; i++) {
+            for (int i = 0; i < e; i++) {
                 a = scanner.nextInt();
                 b = scanner.nextInt();
                 weight = scanner.nextInt();
@@ -55,11 +55,9 @@ public class Graph {
         validateVertex(b);
         if (a == b)
             throw new IllegalArgumentException("");//自环边
-        if (adj[a].containsKey(b) || adj[b].containsKey(a))
-            throw new IllegalArgumentException("");//平行边
 
         adj[a].put(b, weight);
-        if (directed)
+        if (!directed)
             adj[b].put(a, weight);
         E++;
     }
@@ -112,25 +110,6 @@ public class Graph {
             adj[w].remove(v);
     }
 
-    @Override
-    public Graph clone() {
-        try {
-            Graph clone = (Graph) super.clone();
-            clone.adj = new TreeMap[clone.V];
-            for (int i = 0; i < clone.V; i++) {
-                clone.adj[i] = new TreeMap<Integer, Integer>();
-                for (Map.Entry<Integer, Integer> entry: adj[i].entrySet()) {
-                    clone.adj[i].put(entry.getKey(), entry.getValue());
-                }
-            }
-
-            return clone;
-
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 
 }
