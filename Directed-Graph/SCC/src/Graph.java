@@ -43,22 +43,13 @@ public class Graph {
             for (int i=0; i<V; i++)
                 adj[i] = new TreeSet<>();
 
-            E = scanner.nextInt();
-            for (int i=0; i<E; i++) {
+            int e = scanner.nextInt();
+            for (int i=0; i<e; i++) {
                 int a = scanner.nextInt();
                 validateVertex(a);
                 int b = scanner.nextInt();
                 validateVertex(b);
-                //检测是否是平行边
-                if (!adj[a].contains(b))
-                    adj[a].add(b);
-                if (!directed) {
-                    if (!adj[b].contains(a))
-                        adj[b].add(a);
-                } else {
-                    indegree[b]++;
-                    outdegree[a]++;
-                }
+                addEdge(a, b);
             }
 
         } catch (FileNotFoundException e) {
