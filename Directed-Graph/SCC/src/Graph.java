@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -8,18 +10,30 @@ public class Graph {
     private int V;
     private int E;
     private TreeSet<Integer>[] adj;
+    private List<Integer> post;
     private boolean directed;
     private int[] indegree;
     private int[] outdegree;
+    private boolean[] visited;
 
     public Graph(String path) {
         this(path, false);
     }
 
+    public Graph(int v, boolean directed) {
+        this.directed = directed;
+        V = v;
+        adj = new TreeSet[v];
+        visited = new boolean[V];
+        for (int i = 0; i < v; i++) {
+            adj[i] = new TreeSet<>();
+        }
+    }
+
     public Graph(String path, boolean directed) {
         this.directed = directed;
         File file = new File(path);
-
+        visited = new boolean[V];
         try (Scanner scanner = new Scanner(file)){
             V = scanner.nextInt();
             if (V < 0) throw new IllegalArgumentException("");
@@ -52,6 +66,42 @@ public class Graph {
         }
 
     }
+
+    public List<Integer> post() {
+        post = new ArrayList<>();
+        for (int v = 0; v < V; v++) {
+            if (!visited[v]) {
+                dfs(v);
+            }
+        }
+        return post;
+    }
+
+    private void dfs(int v) {
+        visited[v] = true;
+        for (int w : adj[v]) {
+            if (!visited[w])
+                dfs(w);
+        }
+        post.add(v);
+    }
+
+    public void addEdge(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
+        if (!adj[v].contains(w))
+            adj[v].add(w);
+        if (!directed) {
+            if (!adj[w].contains(v))
+                adj[w].add(v);
+        } else {
+            indegree[w]++;
+            outdegree[v]++;
+        }
+        E++;
+    }
+
+
 
     public int V() {
         return V;
