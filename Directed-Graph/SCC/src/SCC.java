@@ -11,13 +11,16 @@ public class SCC {
 
     public SCC(Graph g) {
         G = g;
+
+        if (!g.isDirected())
+            throw new IllegalArgumentException("");
+
         rG = new Graph(G.V(), true);
+
         visited = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++) {
             for (int w : G.adj(v)) {
-                if (v < w) {
-                    rG.addEdge(w, v);
-                }
+                rG.addEdge(w, v);
             }
         }
         ccids = new int[G.V()];
@@ -59,5 +62,20 @@ public class SCC {
             res.get(ccids[v]).add(v);
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        Graph g = new Graph("ug.txt", true);
+        SCC scc = new SCC(g);
+        System.out.println(scc.cccount());
+
+        List<List<Integer>> ccomponts = scc.componts();
+        for (int i = 0; i < ccomponts.size(); i++) {
+            System.out.print("ccid " + i + " :");
+            for (int v : ccomponts.get(i)) {
+                System.out.print(v + " ");
+            }
+            System.out.println();
+        }
     }
 }

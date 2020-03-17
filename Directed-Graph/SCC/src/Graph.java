@@ -25,6 +25,8 @@ public class Graph {
         V = v;
         adj = new TreeSet[v];
         visited = new boolean[V];
+        indegree = new int[V];
+        outdegree = new int[V];
         for (int i = 0; i < v; i++) {
             adj[i] = new TreeSet<>();
         }
