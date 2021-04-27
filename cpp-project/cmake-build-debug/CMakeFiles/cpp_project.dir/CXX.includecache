@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/xuwei.luo/workspace/nio/project/Graph-Algorithms/cpp-project/CGraph.h
+vector
+-
+unordered_set
+-
+set
+-
+fstream
+-
+sstream
+-
+
+/Users/xuwei.luo/workspace/nio/project/Graph-Algorithms/cpp-project/dfs.h
+CGraph.h
+/Users/xuwei.luo/workspace/nio/project/Graph-Algorithms/cpp-project/CGraph.h
+vector
+-
+stdio.h
+-
+
+/Users/xuwei.luo/workspace/nio/project/Graph-Algorithms/cpp-project/main.cpp
+iostream
+-
+CGraph.h
+/Users/xuwei.luo/workspace/nio/project/Graph-Algorithms/cpp-project/CGraph.h
+dfs.h
+/Users/xuwei.luo/workspace/nio/project/Graph-Algorithms/cpp-project/dfs.h
+
