@@ -44,24 +44,48 @@ text-contents/
 #################
 # Github Ignore #
 #################
-README-imooc.md
 
 *.pdf
 *.PDF
 
-03-Graph-DFS/07-Adjacency-Matrix-DFS/
-03-Graph-DFS/08-Graph-Interface/
-03-Graph-DFS/09-Graph-DFS-without-Recursion/
+####cpp-project
 
-04-Graph-DFS-Applications/06-Single-Source-Path-Improvement/
-04-Graph-DFS-Applications/07-All-Pairs-Path/
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-05-Graph-BFS/04-More-about-Path-BFS/
-05-Graph-BFS/05-CC-BFS/
-05-Graph-BFS/06-Cycle-Detection-BFS/
-05-Graph-BFS/07-Bipartition-Detection-BFS/
+# User-specific stuff
+cpp-project/idea/**/workspace.xml
+cpp-project/idea/**/tasks.xml
+cpp-project/idea/**/usage.statistics.xml
+cpp-project/idea/**/dictionaries
+cpp-project/idea/**/shelf
 
-06-Graph-Modelling-and-Floodfill/06-Flood-Fill-and-Union-Find/
-06-Graph-Modelling-and-Floodfill/07-More-Improvement/
+# Generated files
+cpp-project/idea/**/contentModel.xml
 
-09-Hamilton-Loop-and-Path/05-Hamilton-Path/
+# Sensitive or high-churn files
+cpp-project/idea/**/dataSources/
+cpp-project/idea/**/dataSources.ids
+cpp-project/idea/**/dataSources.local.xml
+cpp-project/idea/**/sqlDataSources.xml
+cpp-project/idea/**/dynamic.xml
+cpp-project/idea/**/uiDesigner.xml
+cpp-project/idea/**/dbnavigator.xml
+
+
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn.  Uncomment if using
+# auto-import.
+# .idea/artifacts
+# .idea/compiler.xml
+# .idea/jarRepositories.xml
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
+# *.iml
+# *.ipr
+
+# CMake
+cpp-project/make-build-*/
+
