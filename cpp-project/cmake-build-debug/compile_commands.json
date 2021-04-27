@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/Users/xuwei.luo/workspace/nio/project/Graph-Algorithms/cpp-project/cmake-build-debug",
-  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -std=gnu++14 -o CMakeFiles/cpp_project.dir/main.cpp.o -c /Users/xuwei.luo/workspace/nio/project/Graph-Algorithms/cpp-project/main.cpp",
-  "file": "/Users/xuwei.luo/workspace/nio/project/Graph-Algorithms/cpp-project/main.cpp"
-}
-]
