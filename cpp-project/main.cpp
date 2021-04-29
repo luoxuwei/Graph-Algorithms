@@ -1,7 +1,7 @@
 #include <iostream>
 #include "CGraph.h"
-#include "DFS.h"
-#include "BipartitionDetection.h"
+#include "dfs/DFS.h"
+#include "dfs-applications/BipartitionDetection.h"
 int main() {
 #if 0
     std::cout << "dfs\n" << std::endl;

@@ -4,7 +4,7 @@
 
 #ifndef CPP_PROJECT_BIPARTITIONDETECTION_H
 #define CPP_PROJECT_BIPARTITIONDETECTION_H
-#include "CGraph.h"
+#include "../CGraph.h"
 #include <vector>
 using namespace std;
 class BipartitionDetection {

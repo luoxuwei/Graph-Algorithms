@@ -4,7 +4,7 @@
 
 #ifndef CPP_PROJECT_DFS_H
 #define CPP_PROJECT_DFS_H
-#include "CGraph.h"
+#include "../CGraph.h"
 #include <vector>
 #include <stdio.h>
 
