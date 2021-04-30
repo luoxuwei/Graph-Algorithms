@@ -7,4 +7,5 @@ add_executable(cpp_project-dfs dfs/main.cpp dfs/DFS.h CGraph.h)
 add_executable(cpp_project-dfs-applications
         dfs-applications/main.cpp
         dfs-applications/BipartitionDetection.h
-        dfs-applications/CycleDetection.h CGraph.h)
+        dfs-applications/CycleDetection.h
+        dfs-applications/SingleSourcePath.h CGraph.h)
