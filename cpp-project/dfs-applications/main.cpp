@@ -5,7 +5,7 @@
 #include "SingleSourcePath.h"
 #include "../TestHelper.h"
 int main() {
-#if 0
+#if 1
     std::cout << "bipartitionDetection\n" << std::endl;
     std::string file_name("g2.txt");
     CGraph G(file_name);
@@ -23,7 +23,7 @@ int main() {
     CycleDetection cycleDetection2(g2);
     cycleDetection2.printResult();
 #endif
-#if 1
+#if 0
     std::cout<<"Single Source parent\n"<<std::endl;
     std::string path("g4.txt");
     CGraph g(path);

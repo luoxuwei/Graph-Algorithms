@@ -14,7 +14,8 @@ private:
 public:
     CycleDetection(CGraph& g):G(g) {
         validate.reserve(G.V());
-        std::fill(validate.begin(), validate.end(), false);
+        std::fill_n(validate.begin(), G.V(), false);
+
         hasCycle = false;
         for (int v=0; v<G.V(); v++) {
             if (!validate[v]) {

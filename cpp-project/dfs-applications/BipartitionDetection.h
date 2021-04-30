@@ -17,9 +17,9 @@ private:
 public:
     BipartitionDetection(CGraph& g): G(g) {
         colors.reserve(G.V());
-        fill(colors.begin(), colors.end(), -1);
+        std::fill_n(colors.begin(), G.V(), -1);
         validate.reserve(G.V());
-        fill(validate.begin(), validate.end(), false);
+        std::fill_n(validate.begin(), G.V(), false);
         isBipartition = true;
         for (int v=0; v<G.V(); v++) {
             if (!validate[v]) {
