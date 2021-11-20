@@ -6,6 +6,7 @@
 #define CPP_PROJECT_SINGLESOURCEPATH_H
 #include "../CGraph.h"
 #include <vector>
+#include <algorithm>
 class SingleSourcePath {
 private:
     CGraph& G;

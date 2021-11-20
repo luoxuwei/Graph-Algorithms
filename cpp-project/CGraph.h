@@ -9,6 +9,7 @@
 #include <set>
 #include <fstream>
 #include <sstream>
+#include <assert.h>
 class CGraph {
 private:
     std::vector<std::set<int>> adj;
