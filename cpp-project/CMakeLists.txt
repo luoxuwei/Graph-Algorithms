@@ -11,3 +11,5 @@ add_executable(cpp_project-dfs-applications
         dfs-applications/SingleSourcePath.h CGraph.h)
 
 add_executable(cpp_project-bfs bfs/main.cpp bfs/BFS.h CGraph.h)
+
+add_executable(cpp_project_modelling_and_floodfill Graph-Modelling-and-Floodfill/leetcode200.h Graph-Modelling-and-Floodfill/main.cpp)
