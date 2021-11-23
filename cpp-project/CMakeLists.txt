@@ -16,3 +16,5 @@ add_executable(cpp_project_modelling_and_floodfill
         Graph-Modelling-and-Floodfill/leetcode200.h
         Graph-Modelling-and-Floodfill/main.cpp
         Graph-Modelling-and-Floodfill/leetcode1020.h)
+
+add_executable(leetcode-bfs leetcode-bfs/main.cpp CGraph.h leetcode-bfs/leetcode_773.h)
