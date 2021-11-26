@@ -164,6 +164,14 @@ struct WeightedEdge {
         ss<<"("<<V<<"-"<<W<<":"<<Weight<<")";
         return ss.str();
     }
+
+    bool operator>(const WeightedEdge &e) const {
+        return Weight > e.Weight;
+    }
+
+    bool operator<(const WeightedEdge &e) const {
+        return Weight < e.Weight;
+    }
 };
 
 struct WeightedEdgeCompartor {
@@ -171,6 +179,7 @@ struct WeightedEdgeCompartor {
         return a.Weight < b.Weight;
     }
 };
+
 
 
 #endif //CPP_PROJECT_GRAPH_H
