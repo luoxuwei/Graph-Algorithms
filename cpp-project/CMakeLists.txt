@@ -20,3 +20,5 @@ add_executable(cpp_project_modelling_and_floodfill
 add_executable(leetcode-bfs leetcode-bfs/main.cpp CGraph.h leetcode-bfs/leetcode_773.h)
 add_executable(bridges-and-cut-point CGraph.h bridges-and-cut-point/bridge/findbridge.h bridges-and-cut-point/main.cpp bridges-and-cut-point/cut-point/find_cut_point.h)
 add_executable(minimum-tree minimum-tree/main.cpp minimum-tree/cc.h minimum-tree/uf.h minimum-tree/kruskal.h minimum-tree/prim.h)
+
+add_executable(shortest-path shortest-path/main.cpp shortest-path/dijkstra.h)
