@@ -15,8 +15,9 @@ class CGraph {
 private:
     std::vector<std::set<int>> adj;
     int v, e;
+    bool directed_;
 public:
-    CGraph(std::string& filename) {
+    CGraph(std::string& filename, bool directed = false) : directed_(directed) {
         std::ifstream file(filename);
         std::string line;
 
@@ -36,9 +37,10 @@ public:
             if (adj.at(a).find(b) == adj.at(a).end()) {
                 adj.at(a).insert(b);
             }
-
-            if (adj.at(b).find(a) == adj.at(b).end()) {
-                adj.at(b).insert(a);
+            if (!directed_) {
+                if (adj.at(b).find(a) == adj.at(b).end()) {
+                    adj.at(b).insert(a);
+                }
             }
         }
     }
@@ -70,8 +72,9 @@ class CWeightedGraph {
 private:
     std::vector<std::map<int, int>> adj;
     int v, e;
+    bool directed_;
 public:
-    CWeightedGraph(std::string& filename) {
+    CWeightedGraph(std::string& filename, bool directed = false) : directed_(directed) {
         std::ifstream file(filename);
         std::string line;
 
@@ -92,10 +95,15 @@ public:
                 adj.at(a)[b] = w;
             }
 
-            if (adj.at(b).find(a) == adj.at(b).end()) {
-                adj.at(b)[a] = w;
+            if (!directed_) {
+                if (adj.at(b).find(a) == adj.at(b).end()) {
+                    adj.at(b)[a] = w;
+                }
             }
         }
+    }
+    bool isDirected(){
+        return directed_;
     }
 
     int V() {return v;}
@@ -126,7 +134,9 @@ public:
         validateVertex(w);
         if (adj.at(v).find(w) != adj.at(v).end()) e--;
         adj.at(v).erase(w);
-        adj.at(w).erase(v);
+        if (directed_) {
+            adj.at(w).erase(v);
+        }
     }
 
     void validateVertex(int v) {
