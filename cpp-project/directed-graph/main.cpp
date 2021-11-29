@@ -4,8 +4,9 @@
 #include "cycle_detection.h"
 #include <string>
 #include <iostream>
+#include "topological_sort.h"
 int main() {
-#if 1
+#if 0
     std::string p("ug.txt");
     CGraph g(p, true);
     CycleDetection cycleDetection(g);
@@ -15,5 +16,12 @@ int main() {
     CGraph g2(p2, true);
     CycleDetection cycleDetection2(g2);
     std::cout<<cycleDetection2.HasCycle();
+#endif
+
+#if 1
+    std::string p("ug3.txt");
+    CGraph g(p, true);
+    TopologicalSort topologicalSort(g);
+    topologicalSort.printResult();
 #endif
 }

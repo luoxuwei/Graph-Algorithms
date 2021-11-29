@@ -16,6 +16,7 @@ private:
     std::vector<std::set<int>> adj;
     int v, e;
     bool directed_;
+    std::vector<int> indegrees_, outdegrees_;
 public:
     CGraph(std::string& filename, bool directed = false) : directed_(directed) {
         std::ifstream file(filename);
@@ -27,6 +28,11 @@ public:
         assert(getline(file, line));
         std::stringstream ss(line);
         ss>>v>>e;
+        indegrees_.reserve(v);
+        outdegrees_.reserve(v);
+        std::fill_n(indegrees_.begin(), v, 0);
+        std::fill_n(outdegrees_.begin(), v, 0);
+
         adj = std::vector<std::set<int>>(v, std::set<int>());
         for (int i=0; i<e; i++) {
             assert(getline(file, line));
@@ -37,6 +43,8 @@ public:
             if (adj.at(a).find(b) == adj.at(a).end()) {
                 adj.at(a).insert(b);
             }
+            indegrees_[b]++;
+            outdegrees_[a]++;
             if (!directed_) {
                 if (adj.at(b).find(a) == adj.at(b).end()) {
                     adj.at(b).insert(a);
@@ -45,12 +53,39 @@ public:
         }
     }
 
+    bool isDirected(){
+        return directed_;
+    }
+
     int V() {return v;}
 
     int E() {return e;}
 
     const std::set<int>& get_adj(int v) {
         return adj.at(v);
+    }
+
+    int degree(int v){
+        if(!directed_) throw "degree only works in undirected graph.";
+
+        return adj[v].size();
+    }
+
+    int indegree(int v){
+        if(!directed_) throw "indegree only works in directed graph.";
+        validateVertex(v);
+        return indegrees_[v];
+    }
+
+    int outdegree(int v){
+        if(!directed_) throw "outdegree only works in directed graph.";
+        validateVertex(v);
+        return outdegrees_[v];
+    }
+
+    void validateVertex(int v) {
+        if (v < 0 || v >= V())
+            throw "";
     }
 
     std::string to_string() {
