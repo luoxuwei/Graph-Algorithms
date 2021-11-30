@@ -137,6 +137,32 @@ public:
             }
         }
     }
+
+    CWeightedGraph(int v, bool directed) : v(v), directed_(directed) {
+        e = 0;
+        adj = std::vector<std::map<int, int>>(v, std::map<int, int>());
+    }
+
+    void AddEdge(int v, int w, int weight) {
+        validateVertex(v);
+        validateVertex(w);
+        if (v == w) throw "";//自环边
+        adj[v][w]=weight;
+        if (!directed_) {
+            adj[w][v] = weight;
+        }
+        e++;
+    }
+
+    void SetWeight(int v, int w, int weight) {
+        if (!hasEdge(v, w)) throw "";
+
+        adj[v][w]=weight;
+        if (!directed_) {
+            adj[w][v] = weight;
+        }
+    }
+
     bool isDirected(){
         return directed_;
     }
