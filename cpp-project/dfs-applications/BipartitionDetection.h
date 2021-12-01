@@ -47,6 +47,14 @@ public:
         return true;
     }
 
+    vector<int> &Colors() {
+        return colors;
+    }
+
+    bool IsBipartition() {
+        return isBipartition;
+    }
+
     void printResult() {
         std::cout<<G.to_string()<<"\n";
         std::cout<<"is bipartition: "<<isBipartition;

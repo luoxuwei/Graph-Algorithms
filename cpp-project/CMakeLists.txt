@@ -26,3 +26,5 @@ add_executable(shortest-path shortest-path/main.cpp shortest-path/dijkstra.h)
 add_executable(directed-graph directed-graph/main.cpp directed-graph/cycle_detection.h directed-graph/topological_sort.h directed-graph/topological_sort1.h directed-graph/graph_dfs.h)
 
 add_executable(max-flow max-flow/main.cpp max-flow/max_flow.h)
+
+add_executable(matching-algorichm matching-algorichm/main.cpp matching-algorichm/hungarian_bfs.h)
